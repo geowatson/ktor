@@ -5,17 +5,17 @@
 package io.ktor.util.collections
 
 import io.ktor.util.*
-import io.ktor.utils.io.core.*
 
 @InternalAPI
-open class ConcurrentCollection<E>(
+public open class ConcurrentCollection<E>(
     private val delegate: MutableCollection<E>,
     private val lock: Lock
 ) : MutableCollection<E> {
 
-    override val size: Int get() = lock.withLock {
-        delegate.size
-    }
+    override val size: Int
+        get() = lock.withLock {
+            delegate.size
+        }
 
     override fun contains(element: E): Boolean = lock.withLock {
         delegate.contains(element)
@@ -37,7 +37,7 @@ open class ConcurrentCollection<E>(
         delegate.addAll(elements)
     }
 
-    override fun clear() = lock.withLock {
+    override fun clear(): Unit = lock.withLock {
         delegate.clear()
     }
 

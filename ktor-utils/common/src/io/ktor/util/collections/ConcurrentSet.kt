@@ -7,7 +7,7 @@ package io.ktor.util.collections
 import io.ktor.util.*
 
 @InternalAPI
-class ConcurrentSet<K> constructor(
+public class ConcurrentSet<K> constructor(
     private val delegate: MutableSet<K> = mutableSetOf(),
     private val lock: Lock = Lock()
 ) : ConcurrentCollection<K>(delegate, lock), MutableSet<K>
